@@ -19,9 +19,7 @@ COPY . .
 
 # build release
 CMD npm run build -- --release
-CMD cd ./build
 
-# bundle app source
-COPY . .
+WORKDIR ./build
 
 CMD ["npm", "run", "start:prod"]
