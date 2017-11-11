@@ -14,7 +14,7 @@ export const analytics = {
 
 export const common = {
   api: {
-    URL: 'http://codepush.api.xuezheyoushi.com', // production code-push-server address
-    devURL: 'http://codepush.api.xuezheyoushi.com', // development code-push-server address
+    URL: process.env.CODEPUSH_SERVER_URL || 'http://codepush.api.xuezheyoushi.com', // production code-push-server address
+    devURL: process.env.CODEPUSH_SERVER_URL || 'http://codepush.api.xuezheyoushi.com', // development code-push-server address
   },
 };
