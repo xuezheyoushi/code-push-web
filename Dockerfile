@@ -9,6 +9,11 @@ RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "Asia/shanghai" 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
+# install dependencies
+COPY package.json ./package.json
+RUN npm i -g cnpm --registry=https://registry.npm.taobao.org
+RUN cnpm install --silent --production
+
 # bundle app source
 COPY . .
 
@@ -16,8 +21,7 @@ COPY . .
 CMD npm run build -- --release
 CMD cd ./build
 
-# install dependencies
-RUN npm i -g cnpm --registry=https://registry.npm.taobao.org
-RUN cnpm install --silent --production
+# bundle app source
+COPY . .
 
 CMD ["npm", "run", "start:prod"]
