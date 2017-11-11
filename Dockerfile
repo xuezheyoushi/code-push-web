@@ -1,11 +1,20 @@
-FROM node:6.9.5-alpine
+FROM node:6
 
-# Copy application files
-COPY ./build /usr/src/app
+MAINTAINER metaship app@xuezheyoushi.com
+
+# set timezone
+RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "Asia/shanghai" > /etc/timezone
+
+# create app directory
+RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-# Install Yarn and Node.js dependencies
-RUN npm install yarn --global --no-progress --silent --depth 0 && \
-    yarn install --production --no-progress
+CMD npm run build -- -release
 
-CMD [ "node", "server.js" ]
+CMD cd ./build
+
+# install dependencies
+RUN npm i -g cnpm --registry=https://registry.npm.taobao.org
+RUN cnpm install --silent --production
+
+CMD ["npm", "run", "start:prod"]
