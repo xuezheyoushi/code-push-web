@@ -14,7 +14,11 @@ CMD npm run build -- -release
 CMD cd ./build
 
 # install dependencies
+COPY package.json ./package.json
 RUN npm i -g cnpm --registry=https://registry.npm.taobao.org
 RUN cnpm install --silent --production
+
+# bundle app source
+COPY . .
 
 CMD ["npm", "run", "start:prod"]
